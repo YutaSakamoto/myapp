@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   root 'pages#home'
 
   get '/dashboard', to: 'users#dashboard'
@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   post '/users/edit', to: 'users#update'
 
+  put '/orders/:id/complete', to: 'orders#complete'
   resources :gigs do
     member do
       delete :delete_photo
