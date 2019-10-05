@@ -6,10 +6,17 @@ Rails.application.routes.draw do
   get '/users/:id', to: 'users#show'
   get '/selling_orders', to: 'orders#selling_orders'
   get '/buying_orders', to: 'orders#buying_orders'
+  get '/all_requests', to: 'requests#list'
+  get '/request_offers/:id', to: 'requests#offers', as: 'request_offers'
+  get '/my_offers', to: 'requests#my_offers'
 
   post '/users/edit', to: 'users#update'
+  post '/offers', to: 'offers#create'
 
-  put '/orders/:id/complete', to: 'orders#complete'
+  put '/orders/:id/complete', to: 'orders#complete', as: 'complete_order'
+  put '/offers/:id:accept', to: 'offers#accept', as: 'accept_offer'
+  put '/offers/:id/reject', to: 'offers#reject', as: 'reject_offer'
+
   resources :gigs do
     member do
       delete :delete_photo
@@ -17,6 +24,8 @@ Rails.application.routes.draw do
     end
     resources :orders, only: [:create]
   end
+
+  resources :requests
   
   devise_for :users, 
               path: '', 
